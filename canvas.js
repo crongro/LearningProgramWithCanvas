@@ -1,9 +1,8 @@
-
 /* 
  * global context 
  */
 var o = {
-    color : "black",
+    color : "green",
     in : ""
 };
 
@@ -25,7 +24,8 @@ function DRAW() {
 
 DRAW.prototype.drawRect = function(x,y,width,height) {
     //this.setDefaultStyle();
-    this._ctx.fillRect (x,y,width,height);
+    //this._ctx.fillRect (x,y,width,height);
+    this._ctx.strokeRect(x,y,width,height);
 }
 
 DRAW.prototype.drawCircle = function(x,y,r,arc) {
@@ -50,24 +50,44 @@ DRAW.prototype._getContext = function() {
  */
 
 /* basic Draw */
-function drawRect(x,y,width,height) {
+function rect(x,y,width,height) {
     o.in.drawRect(x,y,width,height);
 }
 
-function fillColor(sColor) {
+function color(sColor) {
     var sColor = sColor === undefined ? o.color : sColor;
     var ctx = o.in._getContext();
     ctx.fillStyle = sColor;
+    ctx.strokeStyle = sColor;
 }
 
-function drawCircle(x,y,r) {
-    o.in.drawCircle(x,y,r,Math.PI*2);
-    o.in._getContext().fill();
+function fillcolor(sColor) {
+    var ctx = o.in._getContext();
+    ctx.fillStyle = sColor === undefined ? ctx.fillStyle : sColor;
+    ctx.fill();
 }
 
-function drawHalfCircle(x,y,r) {
-    o.in.drawCircle(x,y,r,Math.PI);
+function circle(x,y,r,s) {
+    var _nSize = s ? (parseInt(s)/180) : 2;
+    o.in.drawCircle(x, y, r, (Math.PI*_nSize) );
+    //if(!s) o.in._getContext().fill();
 }
 
+function triangle(x1,y1,x2,y2,x3,y3) {
+    var ctx = o.in._getContext();
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    ctx.lineTo(x3,y3);
+    ctx.closePath();
+    ctx.stroke();
+}
 
+function clear(){
+    var ctx = o.in._getContext();
+    var _width = o.in._elCanvas.width;
+    var _height= o.in._elCanvas.height;
+    ctx.clearRect(0, 0, _width, _height);
+    ctx.restore;
+}
 
