@@ -18,9 +18,6 @@ DRAW.prototype.fillRect = function(x,y,width,height,sColor) {
 }
 
 DRAW.prototype.strokeCircle = function(x,y,r,sColor) {
-    //var _nSize = !!r ? (parseInt(r)/180) : 2;
-    //var _arc = Math.PI *_nSize ;
-
     this._ctx.strokeStyle = sColor;
     this._ctx.beginPath();
     this._ctx.arc(x,y,r,0,Math.PI*2);
